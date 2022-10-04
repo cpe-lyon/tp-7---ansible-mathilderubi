@@ -57,6 +57,32 @@ Depuis le node manager, pour se connecter en SSH au compte admin de chaque node,
 
 ### Question 7 : Inventaire des nodes
 
+On crée le dossier ansible dans /home/user-ansible sur le node manager avec la commande `mkdir /home/user-ansible/ansible`. Puis on crée le fichier inventaire.ini avec la commande `nano /home/user-ansible/ansible/inventaire.ini`. En s'inspirant du fichier /etc/ansible/hosts, on note dans le fichier inventaire.ini les lignes suivantes :
+`[apache]
+192.168.122.11
+
+[db]
+192.168.122.12`
+
+## Exercice 3 : Première commande Ansible
+
+### Question 8 : Lancer un ping sur les nodes à l’aide d’Ansible
+
+On lance un ping sur les nodes à l'aide d'Ansible avec la commande
+suivante :
+`$ ansible -i inventaire.ini -m ping all -u tp --ask-pass`.
+On renseigne le mot de passe de tp.
+
+## Exercice 4. Création des comptes utilisateurs user-ansible
+
+### Question 9. Commencez par générer la version chiffrée du mot de passe du compte
+
+Pour générer la version chiffrée du mot de passe du compte, on exécute la commande `ansible localhost -i inventaire.ini -m debug -a "msg={{ 'ansible' |
+password_hash('sha512', 'secretsalt') }}" `
+
+### Question 10. Utilisez le mot de passé chiffré de la question précédente et le module user pour créer le nouvel utilisateur user-ansible sur les nodes (cherchez dans la documentation pour en savoir plus sur ce module !).
+
+
 
 
 
